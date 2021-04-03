@@ -55,7 +55,7 @@ class BST {
                     node.left = newNode;
                     console.log(value,'inserted as left child of',node.value)
                 }
-                else { fitElement(node.next); } // calling recursively until base condition not true 
+                else { fitElement(node.left); } // calling recursively until base condition not true 
             }
             // if value greater then go right
             else if(value > node.value) {
@@ -103,6 +103,38 @@ class BST {
         console.log('maximum value inside tree is',node.value);
         return node.value;
     }
+    // merging two BST
+    merge(node2) {
+        var node1 = this.root;
+        var stack1 = [];
+        var stack2 = [];
+        const sort1 = (node) => {
+            if(node === null) { return;}
+            sort1(node.right);
+            stack1.push(node.value);
+            sort1(node.left);
+        }
+        const sort2 = (node) => {
+            if(node === null) { return;}
+            sort2(node.right);
+            stack2.push(node.value);
+            sort2(node.left);
+        }
+        sort1(node1);
+        sort2(node2);
+        
+        const merged = [];
+        var s1 = stack1.length - 1,s2 = stack2.length - 1;
+        while(s1 >= 0 && s2 >= 0) {
+            if(stack1[s1]<stack2[s2]) { merged.push(stack1[s1--]); }
+            else { merged.push(stack2[s2--]); }
+        }
+        while(s1>=0) { merged.push(stack1[s1--]); }
+        while(s2>=0) { merged.push(stack2[s2--]); }
+        
+        console.log('after merging',stack1,'and',stack2);
+        console.log('the merged BST will be',merged);
+    } 
 }
 
 let v = new BST(5);
@@ -112,3 +144,11 @@ v.insert(9);
 v.contains(6);
 v.min();
 v.max();
+
+let p = new BST(15);
+p.insert(13);
+p.insert(18);
+p.insert(20);
+p.insert(19);
+p.insert(6);
+v.merge(p.root);
