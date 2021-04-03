@@ -43,11 +43,11 @@ class BST {
     constructor(root) {
         this.root = new TreeNode(root);
     }
-    
+
     insert(value) {
         
         let newNode = new TreeNode(value) 
-        
+    
         const fitElement = (node) => {
             // if value is smaller then it will go left
             if(value < node.value) {
@@ -84,10 +84,31 @@ class BST {
         
         console.log('tree does not contains',value);
     }
+
+    min() {
+        var node = this.root;
+        // traversing left until left because in bst left most contains smallest
+        while(node.left) {
+            node = node.left;
+        }
+        console.log('minimum value inside tree is',node.value);
+        return node.value;
+    }
+
+    max() {
+        var node = this.root;
+        while(node.right) {
+            node = node.right;
+        }
+        console.log('maximum value inside tree is',node.value);
+        return node.value;
+    }
 }
 
 let v = new BST(5);
 v.insert(4);
 v.insert(8);
-v.insert(9)
-v.contains(6)
+v.insert(9);
+v.contains(6);
+v.min();
+v.max();
