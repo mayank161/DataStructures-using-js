@@ -134,7 +134,22 @@ class BST {
         
         console.log('after merging',stack1,'and',stack2);
         console.log('the merged BST will be',merged);
-    } 
+    }
+    
+    // preOrder Traversal
+    preOrder() {
+        var node = this.root;
+        var array = [];
+        const pre = (node) =>{
+            if(!node) { return; }
+            array.push(node.value);
+            pre(node.left);
+            pre(node.right);   
+        }
+        pre(node);
+
+        console.log('preOrder traversal of the tree is',array);
+    }
 }
 
 let v = new BST(5);
@@ -152,3 +167,5 @@ p.insert(20);
 p.insert(19);
 p.insert(6);
 v.merge(p.root);
+
+p.preOrder();
